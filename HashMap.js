@@ -103,35 +103,22 @@ class HashMap {
     console.log(result);
     return result;
   }
-  //   remove(key) {
-  //     let search = key;
-  //     let map = this.map;
-  //     let id = this.hash(key);
-  //     let location = this.map[id];
-  //     let previous;
-  //     let result = false;
-  //     console.log(location);
-  //     // for (let i = 0; i < map.length; i++) {
-  //     //   if (map[i] !== undefined) {
-  //     //     location = map[i];
-  //     //     while (location !== null) {
-  //     //       if (location.name === search) {
-  //     //         if (location.next === null) {
-  //     //           previous.next = null;
-  //     //         }
 
-  //     //         console.log(previous[index]);
-  //     //         result = true;
-  //     //         previous.next = location.next;
-  //     //         break;
-  //     //       } else {
-  //     //         previous = location;
-  //     //         location = location.next;
-  //     //       }
-  //     //     }
-  //     //   }
-  //     // }
-  //     // console.log(result);
-  //   }
+  remove(key) {
+    let search = key;
+    let id = this.hash(key);
+    let location = this.map[id];
+    let current = location;
+    let previous;
+    if (location.name === search) {
+      location = null;
+    } else {
+      while (current.name !== search) {
+        previous = current;
+        current = current.next;
+      }
+      previous.next = null;
+    }
+  }
 }
 export { HashMap };

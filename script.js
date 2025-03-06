@@ -58,6 +58,6 @@ test.get("hat");
 // test.has("funny", "lennon");
 // test.has("foods", "tacos");
 
-// test.remove("sky");
-
+test.remove("outside");
+test.remove("foods");
 console.log(test);
