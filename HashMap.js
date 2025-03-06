@@ -110,15 +110,28 @@ class HashMap {
     let location = this.map[id];
     let current = location;
     let previous;
+    let result = "No item found";
     if (location.name === search) {
-      location = null;
+      this.map[id] = undefined;
+      console.log(location);
+      result = "Item removed";
     } else {
-      while (current.name !== search) {
+      while (current.name !== search && current.next !== null) {
         previous = current;
         current = current.next;
       }
-      previous.next = null;
+      if (current.name === search) {
+        previous.next = null;
+        result = "Item removed";
+      }
     }
+    console.log(result);
+    return result;
+  }
+
+  clear() {
+    this.capcity = 16;
+    this.map = new Array(this.capcity);
   }
 }
 export { HashMap };

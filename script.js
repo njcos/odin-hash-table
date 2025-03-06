@@ -60,4 +60,7 @@ test.get("hat");
 
 test.remove("outside");
 test.remove("foods");
+test.remove("Psych");
+test.remove("moon");
+// test.clear();
 console.log(test);
