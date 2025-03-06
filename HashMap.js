@@ -6,7 +6,7 @@ class HashMap {
   }
 
   hash(key) {
-    let hashCode = 0;
+    let hashCode = 2;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
@@ -22,7 +22,6 @@ class HashMap {
     let current = map[id];
     let previous;
     let nextObject = object;
-
     if (map[id] !== undefined) {
       while (current !== null) {
         previous = current;
@@ -33,7 +32,6 @@ class HashMap {
     } else {
       map[id] = object;
     }
-    // this.checkCapacity();
     this.expandMap();
   }
   checkCapacity() {
@@ -46,61 +44,64 @@ class HashMap {
     }
     return amountFull;
   }
+
   expandMap() {
     let load = this.loadFactor;
     let mapCapcity = this.capcity;
     let amountFull = this.checkCapacity();
     let currentMap = this.map;
-
+    let tempArray = new Array(mapCapcity);
+    let currentNode;
+    let previousNode;
     if (amountFull >= mapCapcity * load) {
       mapCapcity = mapCapcity * 2;
-      let tempArray = new Array(mapCapcity);
       this.capcity = mapCapcity;
       for (let i = 0; i < currentMap.length; i++) {
         tempArray[i] = currentMap[i];
-        this.map = tempArray;
+        if (currentMap[i] !== undefined) {
+          this.map[i] = undefined;
+          currentNode = tempArray[i];
+          while (currentNode !== null) {
+            this.set(currentNode.name, currentNode.value);
+            previousNode = currentNode;
+            currentNode = currentNode.next;
+          }
+          //   this.set(tempArray[i].name, tempArray[i].value);
+        }
       }
     }
   }
+
   get(key) {
-    let search = key;
-    let map = this.map;
-    let location = this.map;
+    let search = this.hash(key);
+    let location = this.map[search];
     let result;
-    for (let i = 0; i < map.length; i++) {
-      if (map[i] !== undefined) {
-        location = map[i];
-        while (location !== null) {
-          if (location.name === search) {
-            result = location.value;
-            break;
-          } else {
-            location = location.next;
-          }
-        }
+    while (location !== null) {
+      if (location.name === key) {
+        result = location.value;
+        break;
+      } else {
+        location = location.next;
       }
     }
     console.log(result);
+    return result;
   }
+
   has(key) {
-    let search = key;
-    let map = this.map;
-    let location = this.map;
+    let search = this.hash(key);
+    let location = this.map[search];
     let result = false;
-    for (let i = 0; i < map.length; i++) {
-      if (map[i] !== undefined) {
-        location = map[i];
-        while (location !== null) {
-          if (location.name === search) {
-            result = true;
-            break;
-          } else {
-            location = location.next;
-          }
-        }
+    while (location !== null) {
+      if (location.name === key) {
+        result = true;
+        break;
+      } else {
+        location = location.next;
       }
     }
     console.log(result);
+    return result;
   }
   //   remove(key) {
   //     let search = key;
