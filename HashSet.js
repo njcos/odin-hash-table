@@ -1,4 +1,4 @@
-class HashMap {
+class HashSet {
   constructor(loadFactor, capcity) {
     this.loadFactor = loadFactor;
     this.capcity = capcity;
@@ -16,7 +16,7 @@ class HashMap {
   }
 
   set(key, value) {
-    let object = { name: key, value: value, next: null };
+    let object = { name: key, next: null };
     let map = this.map;
     let id = this.hash(key);
     let current = map[id];
@@ -168,40 +168,5 @@ class HashMap {
     }
     console.log(keys);
   }
-  values() {
-    let map = this.map;
-    let current = map;
-    let previous;
-    let values = [];
-    for (let i = 0; i < map.length; i++) {
-      if (map[i] !== undefined) {
-        current = map[i];
-        while (current !== null) {
-          values.push(current.value);
-          previous = current;
-          current = current.next;
-        }
-      }
-    }
-    console.log(values);
-  }
-
-  entries() {
-    let map = this.map;
-    let current = map;
-    let previous;
-    let entries = [];
-    for (let i = 0; i < map.length; i++) {
-      if (map[i] !== undefined) {
-        current = map[i];
-        while (current !== null) {
-          entries.push([current.name, current.value]);
-          previous = current;
-          current = current.next;
-        }
-      }
-    }
-    console.log(entries);
-  }
 }
-export { HashMap };
+export { HashSet };
